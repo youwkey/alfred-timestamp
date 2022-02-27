@@ -8,5 +8,8 @@ linters:
 linters-settings:
   varnamelen:
     min-name-length: 1
+  gomnd:
+    ignored-functions:
+      - 'strconv.*'
 issues:
   exclude-use-default: false
