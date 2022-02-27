@@ -6,7 +6,7 @@ DIST_DIR := "build"
 all: build copy-build-assets package-workflow
 
 mod:
-	go mod download
+	go mod tidy
 
 build: mod
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(DIST_DIR)/$(EXEC_BIN)-amd64
