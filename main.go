@@ -15,40 +15,23 @@ func main() {
 	arg1 := flag.Arg(0)
 	arg2 := flag.Arg(1)
 	sf := alfred.ScriptFilter{}
-	sf.SetEmptyTitle("Parse Error", "")
 
 	if num, err := strconv.ParseInt(arg1, 10, 64); err == nil {
 		t := time.Unix(num, 0)
 		dateString := t.Format(datetimeLayout)
-		sf.Append(alfred.Item{
-			Title: dateString,
-			Arg:   dateString,
-			Text: &alfred.Text{
-				Copy:      dateString,
-				LargeType: dateString,
-			},
-		})
+		item := alfred.NewItem(dateString).Arg(dateString).Text(dateString)
+		sf.Items().Append(item)
 	} else if t, err := time.ParseInLocation(datetimeLayout, arg1+" "+arg2, time.Local); err == nil {
 		tsString := strconv.FormatInt(t.Unix(), 10)
-		sf.Append(alfred.Item{
-			Title: tsString,
-			Arg:   tsString,
-			Text: &alfred.Text{
-				Copy:      tsString,
-				LargeType: tsString,
-			},
-		})
+		item := alfred.NewItem(tsString).Arg(tsString).Text(tsString)
+		sf.Items().Append(item)
 	} else if t, err := time.ParseInLocation(dateLayout, arg1, time.Local); err == nil {
 		tsString := strconv.FormatInt(t.Unix(), 10)
-		sf.Append(alfred.Item{
-			Title: tsString,
-			Arg:   tsString,
-			Text: &alfred.Text{
-				Copy:      tsString,
-				LargeType: tsString,
-			},
-		})
+		item := alfred.NewItem(tsString).Arg(tsString).Text(tsString)
+		sf.Items().Append(item)
+	} else {
+		sf.Items().Append(alfred.NewInvalidItem("Parse Error"))
 	}
 
-	sf.Output()
+	_ = sf.Output()
 }
