@@ -6,7 +6,7 @@ DIST_DIR := "build"
 GOTESTSUM_VERSION := 1.7.0
 GOLANGCLI_VERSION := 1.44.2
 
-.PHONY: all mod test lint copy-build-assets package-workflow clean tools
+.PHONY: all mod test lint fix copy-build-assets package-workflow clean tools
 
 all: build copy-build-assets package-workflow
 
@@ -20,6 +20,9 @@ test:
 
 lint:
 	golangci-lint run
+
+fix:
+	golangci-lint run --fix
 
 build: mod
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(DIST_DIR)/$(EXEC_BIN)-amd64
