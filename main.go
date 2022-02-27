@@ -2,13 +2,16 @@ package main
 
 import (
 	"flag"
-	"github.com/youwkey/alfred-go"
 	"strconv"
 	"time"
+
+	"github.com/youwkey/alfred-go"
 )
 
-const dateLayout = "2006-01-02"
-const datetimeLayout = dateLayout + " 15:04:05"
+const (
+	dateLayout     = "2006-01-02"
+	datetimeLayout = dateLayout + " 15:04:05"
+)
 
 func main() {
 	flag.Parse()
