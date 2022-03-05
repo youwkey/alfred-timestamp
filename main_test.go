@@ -2,13 +2,15 @@
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
-package main
+package main_test
 
 import (
 	"errors"
 	"fmt"
 	"testing"
 	"time"
+
+	main "github.com/youwkey/alfred-timestamp"
 )
 
 func TestParseTimestamp(t *testing.T) {
@@ -26,15 +28,15 @@ func TestParseTimestamp(t *testing.T) {
 		{in: "1641008096123", out: date(2022, 1, 1, 3, 34, 56, 123000000, utc), err: nil},
 		{in: "1641008096123456", out: date(2022, 1, 1, 3, 34, 56, 123456000, utc), err: nil},
 		{in: "999999999999999999", out: date(33658, 9, 27, 1, 46, 39, 999999000, utc), err: nil},
-		{in: "string", out: time.Time{}, err: ErrParseTimestamp},
-		{in: "1000000000000000000", out: time.Time{}, err: ErrUnsupportedDigit},
+		{in: "string", out: time.Time{}, err: main.ErrParseTimestamp},
+		{in: "1000000000000000000", out: time.Time{}, err: main.ErrUnsupportedDigit},
 	}
 
 	for i, test := range tests {
 		i, test := i, test
 		t.Run(fmt.Sprintf("#%d:ParseTimestamp", i), func(t *testing.T) {
 			t.Parallel()
-			got, err := ParseTimestamp(test.in)
+			got, err := main.ParseTimestamp(test.in)
 			if !got.Equal(test.out) {
 				t.Errorf("#%d: got: %v want: %v", i, got, test.out)
 			}
@@ -86,7 +88,7 @@ func TestParseDateString(t *testing.T) {
 			in1: "2022T12",
 			in2: "",
 			out: time.Time{},
-			err: ErrParseDateString,
+			err: main.ErrParseDateString,
 		},
 		{
 			in1: "2022-12-31",
@@ -128,7 +130,7 @@ func TestParseDateString(t *testing.T) {
 			in1: "2022",
 			in2: "",
 			out: time.Time{},
-			err: ErrParseDateString,
+			err: main.ErrParseDateString,
 		},
 	}
 
@@ -136,7 +138,7 @@ func TestParseDateString(t *testing.T) {
 		i, test := i, test
 		t.Run(fmt.Sprintf("#%d:ParseDateString", i), func(t *testing.T) {
 			t.Parallel()
-			got, err := ParseDateString(test.in1, test.in2)
+			got, err := main.ParseDateString(test.in1, test.in2)
 			if !got.Equal(test.out) {
 				t.Errorf("#%d: got: %v want: %v", i, got, test.out)
 			}
