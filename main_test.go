@@ -91,6 +91,18 @@ func TestParseDateString(t *testing.T) {
 			err: nil,
 		},
 		{
+			in1: "2022-12-31",
+			in2: "01",
+			out: time.Date(2022, 12, 31, 1, 0, 0, 0, time.Local),
+			err: nil,
+		},
+		{
+			in1: "2022-12-31",
+			in2: "01:02",
+			out: time.Date(2022, 12, 31, 1, 2, 0, 0, time.Local),
+			err: nil,
+		},
+		{
 			in1: "2022/12/31",
 			in2: "01:02:03",
 			out: time.Date(2022, 12, 31, 1, 2, 3, 0, time.Local),

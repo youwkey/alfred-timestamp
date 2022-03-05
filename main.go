@@ -54,7 +54,7 @@ func ParseDateString(dateString, timeString string) (time.Time, error) {
 		"2006-01-02T15:04:05.000000Z07:00",
 	}
 	dateLayouts := [...]string{"2006-01-02", "2006/01/02", "20060102"}
-	timeLayouts := [...]string{"15:04:05", "15:04:05.000", "15:04:05.000000"}
+	timeLayouts := [...]string{"15", "15:04", "15:04:05", "15:04:05.000", "15:04:05.000000"}
 
 	local := time.Local
 
