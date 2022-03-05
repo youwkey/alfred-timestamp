@@ -16,12 +16,12 @@ func TestParseTimestamp(t *testing.T) {
 		err error
 	}
 
-	date, local := time.Date, time.Local
+	date, utc := time.Date, time.UTC
 	tests := []Test{
-		{in: "1641008096", out: date(2022, 1, 1, 12, 34, 56, 0, local), err: nil},
-		{in: "1641008096123", out: date(2022, 1, 1, 12, 34, 56, 123000000, local), err: nil},
-		{in: "1641008096123456", out: date(2022, 1, 1, 12, 34, 56, 123456000, local), err: nil},
-		{in: "999999999999999999", out: date(33658, 9, 27, 10, 46, 39, 999999000, local), err: nil},
+		{in: "1641008096", out: date(2022, 1, 1, 3, 34, 56, 0, utc), err: nil},
+		{in: "1641008096123", out: date(2022, 1, 1, 3, 34, 56, 123000000, utc), err: nil},
+		{in: "1641008096123456", out: date(2022, 1, 1, 3, 34, 56, 123456000, utc), err: nil},
+		{in: "999999999999999999", out: date(33658, 9, 27, 1, 46, 39, 999999000, utc), err: nil},
 		{in: "string", out: time.Time{}, err: ErrParseTimestamp},
 		{in: "1000000000000000000", out: time.Time{}, err: ErrUnsupportedDigit},
 	}
